@@ -1,0 +1,15 @@
+export const securityAlerts = [
+    "No responder a e-mails enviados por personas desconocidas. ",
+    "Utilice siempre la página web oficial para obtener información de ésta.",
+    "Si recibe un e-mail de extrañas características bórrelo inmediatamente sin abrirlo.",
+    "Si abrió un e-mail no deseado y éste le ofrece la opción de eliminar su nombre de la lista, no la utilice, puesto que con esto se busca confirmar la cuenta de correo.",
+    "No utilice la misma contraseña de los servicios electrónicos financieros (ATM, transferencias, avances en efectivo) para acceder a herramientas de comunicación no seguras, tales como e-mail o el chat.",
+    "No utilice como clave, alguna información personal fácil de adivinar.",
+    "Nunca escriba la contraseña en papel, si realmente tiene que escribirla, guárdela en un lugar seguro.",
+    "Cambie frecuentemente su contraseña.",
+    "Nunca envíe por e-mail información confidencial, tal como código de membresía, contraseña o número de documento de identificación.",
+    "Nunca envíe solicitudes de contraseña que le lleguen a través de correo electrónico o telefónico.",
+    "El personal de Pichincha Miles®, jamás le solicitará este dato, por ningún medio ni motivo.",
+    "No utilice enlaces incorporados en emails o páginas web de terceros desconocidos.",
+    "No utilice computadoras públicas para realizar transacciones personales, especialmente financieras o relacionadas con sus millas.",
+];

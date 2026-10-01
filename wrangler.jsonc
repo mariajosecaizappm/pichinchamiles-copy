@@ -1,0 +1,75 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "pichinchamiles-web",
+	"compatibility_date": "2025-04-22",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"main": ".open-next/worker.js",
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"build": {
+		"command": "npx opennextjs-cloudflare build"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"env": {
+		"dev": {
+			"name": "pichinchamiles-web-dev",
+			"vars": {
+				"NEXT_PUBLIC_API_URL": "https://apigateway-gaianetcore.developppm.com",
+				"NEXT_PUBLIC_API_KEY": "ece65657-bee7-4a8c-88da-c0001ac782d3",
+				"NEXT_PUBLIC_PROGRAM_ID": "dfa9b3cb-9970-4645-a4e0-4916c317f69a",
+				"NEXT_PUBLIC_CLIENT_ID": "22c0e21f-157f-47db-8829-4b15f440e9ca",
+				"NEXT_PUBLIC_SITE_KEY":"6Lcm0xEjAAAAAMjQNqvNfb1e0Kb7LgOhsC4_XuA1",
+				"NEXT_PUBLIC_CROSS_DOMAIN_COOKIE": ".developppm.com",
+				"NEXT_PUBLIC_CROSS_NAME_COOKIE": "xdcartokens",
+				"NEXT_PUBLIC_ALGOLIA_APP_ID": "HI2970U4ZC",
+				"NEXT_PUBLIC_ALGOLIA_API_KEY": "95a3d5a09f1f246588d7cae604a30fbb",
+				"NEXT_PUBLIC_ORIGIN": "https://portal-pichinchamiles.developppm.com/",
+				"NEXT_PUBLIC_UV_METEOR": "https://test-pichinchamiles-v3.developppm.com",
+				"NEXT_PUBLIC_UV_ANGULAR": "https://traveltest-pichinchamiles-v3.developppm.com",
+				"NEXT_PUBLIC_UV_DISNEY": "https://viajestest-pichinchamiles.developppm.com",
+				"NEXT_PUBLIC_KOUNT_CLIENT_ID": "101185",
+				"NEXT_PUBLIC_KOUNT_HOSTNAME": "tst.kaptcha.com",
+				"NEXT_PUBLIC_KOUNT_ENVIRONMENT": "TEST"
+			}
+		},
+		"preprod": {
+			"name": "pichinchamiles-web-preprod",
+			"vars": {
+				"NEXT_PUBLIC_API_URL": "https://apigateway-gaianetcore.preprodppm.com",
+				"NEXT_PUBLIC_API_KEY": "91343fea-2187-4a35-b037-e4a5ce702225",
+				"NEXT_PUBLIC_PROGRAM_ID": "dfa9b3cb-9970-4645-a4e0-4916c317f69a",
+				"NEXT_PUBLIC_CLIENT_ID": "78a21a67-eb99-4787-94ad-fb35380392b9",
+				"NEXT_PUBLIC_SITE_KEY": "6Lcm0xEjAAAAAMjQNqvNfb1e0Kb7LgOhsC4_XuA1",
+				"NEXT_PUBLIC_CROSS_DOMAIN_COOKIE": ".preprodppm.com",
+				"NEXT_PUBLIC_CROSS_NAME_COOKIE": "xdcartokens",
+				"NEXT_PUBLIC_ALGOLIA_APP_ID": "4R2HI8QQ9I",
+				"NEXT_PUBLIC_ALGOLIA_API_KEY": "0569efa006e00bef9cc6df4d8b71a9de",
+				"NEXT_PUBLIC_ORIGIN": "https://portal-pichinchamiles.preprodppm.com/",
+				"NEXT_PUBLIC_UV_METEOR": "https://demo-pichinchamiles-ec-v3.preprodppm.com",
+				"NEXT_PUBLIC_UV_ANGULAR": "https://traveldemo-pichinchamiles-ec-v3.preprodppm.com",
+				"NEXT_PUBLIC_UV_DISNEY": "https://viajesdemo-pichinchamiles.preprodppm.com",
+				"NEXT_PUBLIC_KOUNT_CLIENT_ID": "101185",
+				"NEXT_PUBLIC_KOUNT_HOSTNAME": "tst.kaptcha.com",
+				"NEXT_PUBLIC_KOUNT_ENVIRONMENT": "TEST"
+			}
+		},
+		"prod": {
+			"name": "pichinchamiles-web-prod",
+			"vars": {}
+		}
+	}
+}

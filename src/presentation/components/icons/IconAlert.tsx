@@ -1,0 +1,11 @@
+interface IconAlertProps extends React.SVGProps<SVGSVGElement> {
+    className?: string;
+}
+
+const IconAlert = ({ className, ...props }: IconAlertProps) => (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
+        <path d="M1.3335 28L16.0002 2.66669L30.6668 28H1.3335ZM5.9335 25.3334H26.0668L16.0002 8.00002L5.9335 25.3334ZM16.9502 23.6167C17.2057 23.3611 17.3335 23.0445 17.3335 22.6667C17.3335 22.2889 17.2057 21.9722 16.9502 21.7167C16.6946 21.4611 16.3779 21.3334 16.0002 21.3334C15.6224 21.3334 15.3057 21.4611 15.0502 21.7167C14.7946 21.9722 14.6668 22.2889 14.6668 22.6667C14.6668 23.0445 14.7946 23.3611 15.0502 23.6167C15.3057 23.8722 15.6224 24 16.0002 24C16.3779 24 16.6946 23.8722 16.9502 23.6167ZM14.6668 20H17.3335V13.3334H14.6668V20Z" fill="currentColor" />
+    </svg>
+);
+
+export default IconAlert;

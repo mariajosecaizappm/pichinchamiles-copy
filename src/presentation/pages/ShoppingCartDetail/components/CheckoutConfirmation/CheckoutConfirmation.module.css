@@ -1,0 +1,17 @@
+@reference "../../../../../app/globals.css";
+
+.addressCardTitle{
+    @apply font-sans font-normal text-[22px] leading-7 text-blue-500 mb-4;
+}
+
+.addressCard{
+    @apply w-full py-4 px-3 border border-darkGrayishBlue-300 rounded-lg bg-darkGrayishBlue-100 text-grayscale-500;
+}
+
+.addressText{
+    @apply typo-main-caption-medium text-grayscale-400;
+}
+
+.addressText span{
+    @apply text-grayscale-500;
+}

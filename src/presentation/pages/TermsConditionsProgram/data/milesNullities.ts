@@ -1,0 +1,9 @@
+export const milesNullities = [
+    'El producto o servicio con el que se generaron es cancelado por decisión voluntaria del Cliente, políticas del producto, comportamiento crediticio u orden de autoridad competente. El cliente podrá redimir o canjear sus millas en un plazo de 180 días para lo cual será comunicado de forma oportuna a través de los canales oficiales del Banco o del programa.',
+    'Por la inactividad del uso de la Tarjeta de Crédito, el Banco Pichincha podrá anular las Millas otorgadas, según las políticas del producto.',
+    'El Cliente solicite cambio de Tarjeta de Crédito Miles por una Tarjeta de Crédito a la que no aplique el programa de Pichincha Miles. El cliente podrá redimir o canjear sus millas en un plazo de 180 días será comunicado de forma oportuna a través de los canales oficiales del Banco o del programa.',
+    'En caso del fallecimiento del titular de la cuenta Pichincha Miles, el saldo de millas disponible podrá ser transferidas a los legítimos sucesores, siempre y cuando se presente la documentación correspondiente (posesión efectiva y debidamente inscrita), en un plazo máximo de 180 días desde la fecha de fallecimiento, de no presentarse dicha solicitud, las millas serán anuladas y la cuenta Pichincha Miles del fallecido pasará a estado cerrado.',
+    'El Cliente presente mora superior a 30 días. En este caso el Cliente perderá las Millas acumuladas durante el período sin pago por el cual ha se ha generado mora.',
+    'El Cliente haya sido reportado en listas para la prevención y control del lavado de activos y financiación del terrorismo, más conocidas como listas restrictivas.',
+    'Exista cualquier infracción, fraude o abuso relacionado con la obtención y uso de las Millas y los bienes o servicios redimidos. En este caso el Cliente también estará sujeto a las acciones legales y/o administrativas aplicables por parte de las autoridades competentes, incluyendo la nulidad de Millas del Programa.',
+];

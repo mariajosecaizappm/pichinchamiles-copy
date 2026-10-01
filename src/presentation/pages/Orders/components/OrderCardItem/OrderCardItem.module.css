@@ -1,0 +1,25 @@
+@reference "../../../../../app/globals.css";
+
+.orderCard {
+    @apply p-3 md:p-4 rounded-lg border border-information-100 flex flex-col gap-1 w-full cursor-pointer md:h-26;
+
+    .orderCardHeader {
+        @apply flex gap-4 justify-between;
+
+        .orderCardHeaderIcon {
+            @apply text-blue-500;
+        }
+
+        .orderCardHeaderInfo {
+            @apply flex flex-1 items-center gap-4;
+        }
+    }
+
+    .orderCardBody {
+        @apply flex flex-col gap-1 w-full text-left;
+
+        .orderCardBodyInfo {
+            @apply text-sm leading-5 text-grayscale-400
+        }
+    }
+}

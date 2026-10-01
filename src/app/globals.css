@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@import "react-responsive-carousel/lib/styles/carousel.min.css";
+@plugin "./../../hero.ts";
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@source '../presentation';
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --dropdown-text: #929296;
+  --dropdown-title: #4A4A50;
+
+  --header-height: 73px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-dropdown: var(--dropdown-text);
+  --color-dropdown-title: var(--dropdown-title);
+  --font-sans: var(--font-prelo), Arial, Helvetica, sans-serif;
+  --font-slab: var(--font-prelo-slab), serif;
+  --font-mono: var(--font-inter);
+
+  --text-body: 16px;
+  --leading-body: 24px;
+
+  --leading-body-dropdown: 26px;
+
+  --text-h2: 26px;
+  --leading-h2: 32px;
+
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 998px;
+  --breakpoint-xl: 1200px;
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), serif;
+}
+
+a:focus-visible,
+a:focus,
+a:active {
+  outline: 1px solid #000;
+}
+
+@utility typo-main-caption-book {
+  @apply font-sans text-sm text-grayscale-500 font-normal;
+}
+
+@utility base-paragraph {
+  @apply text-body leading-body font-medium font-sans text-grayscale-500;
+
+  strong,
+  b {
+    @apply font-slab;
+  }
+
+  a {
+    @apply font-slab underline;
+  }
+
+  a::before {
+    content: " ";
+  }
+}
+
+@utility base-h2 {
+  @apply text-h2 leading-h2 font-semibold font-slab tracking-normal;
+}
+
+@utility base-container {
+  @apply mx-auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+
+  @variant md {
+    max-width: 750px;
+  }
+
+  @variant lg {
+    max-width: 970px;
+  }
+
+  @variant xl {
+    max-width: 1104px;
+  }
+}
+
+@utility home-body-container {
+  @apply mx-auto;
+  @apply max-md:px-6;
+  width: 100%;
+
+  @variant md {
+    max-width: 750px;
+  }
+
+  @variant lg {
+    max-width: 970px;
+  }
+
+  @variant xl {
+    max-width: 1056px;
+  }
+}
+
+@utility body-container {
+  @apply mx-auto px-6;
+  width: 100%;
+
+  @apply max-w-330;
+}
+
+
+@utility typo-main-title {
+  @apply font-slab text-[28px] leading-9;
+}
+
+@utility typo-banner-title {
+  @apply font-slab text-h2 font-bold leading-h2;
+}
+
+@utility typo-banner-subtitle {
+  @apply font-slab text-[22px] font-normal leading-7;
+}
+
+@utility typo-main-headline-3-prelo-semi-bold {
+  @apply font-sans text-[22px] font-semibold leading-7;
+}
+
+@utility typo-main-headline-2-prelo-semi-bold {
+  @apply font-sans text-[28px] font-semibold leading-8;
+}
+
+@utility typo-main-caption-book {
+  @apply font-sans text-sm font-normal leading-5 text-grayscale-500;
+}
+
+@utility typo-main-legal-medium {
+  @apply font-sans text-[12px] font-medium leading-4;
+}
+
+@utility typo-main-caption-medium {
+  @apply font-sans text-sm font-medium leading-5;
+}
+
+@utility typo-main-caption-semi-bold {
+  @apply font-sans text-sm font-semibold leading-5;
+}
+
+@utility typo-main-body-semi-bold {
+  @apply font-sans text-body font-semibold leading-6;
+}
+
+@utility typo-main-body-book {
+  @apply font-sans text-body font-normal leading-6 text-grayscale-500;
+}
+
+@utility typo-main-subtitle-semi-bold {
+  @apply font-sans text-[18px] font-semibold leading-6 text-grayscale-500;
+}
+
+@utility title-section {
+    @apply font-slab text-[22px] leading-7 text-blue-500;
+}
+
+/* Hero carousel: avoid an initial CSS transition delaying LCP paint */
+.home-banner-slide .carousel .slider.animated {
+    transition: none !important;
+}

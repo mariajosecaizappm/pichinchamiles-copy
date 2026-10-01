@@ -1,0 +1,17 @@
+export const conditionsCars = [
+    'Las cancelaciones o modificaciones recibidas en cualquier momento estarán sujetas a las políticas y a los cargos de cancelación del proveedor, que pueden llegar a implicar el monto total de la reserva.',
+    'En ningún caso se reembolsará a una persona que no se presente, y esto conllevará la pérdida total de los pagos efectuados y de las millas que haya utilizado para realizar la reserva, sin que se genere crédito alguno.',
+    'El retorno anticipado de un automóvil alquilado no será reembolsado.',
+    'Cualquier impuesto, tasa o recargo adicionales están sujetos a cambios sin previo aviso; pueden variar según la ubicación y cobrarse al momento de la entrega del vehículo.',
+    'Las tasas de alquiler se basan en períodos de 24 horas y pueden estar sujetas a tarifas adicionales según el tiempo de devolución, incluidos los cargos de alquiler por hora, que la compañía de alquiler de automóviles cobrará directamente al cliente. Algunas empresas requieren un período de alquiler mínimo, por tanto, si se alquila por un período menor al mínimo requerido, se aplicará la tarifa de alquiler mínima.',
+    'Las tasas de alquiler pautado por adelantado en los Estados Unidos de América incluyen millaje ilimitado, impuestos y tarifas. Es posible que las tasas de alquiler de automóviles fuera de los Estados Unidos no incluyan millaje ilimitado, impuestos y tarifas, y estos serán evaluados directamente por la localidad rentadora. Los cargos son facturados directamente por la compañía de alquiler y las tasas están sujetas a cambio.',
+    'Los cargos por servicios opcionales, tales como la renuncia a un seguro, el combustible, los conductores adicionales o menores de edad, y los cargos de equipos especiales, no se incluyen en el alquiler y deben pagarse directamente a la compañía de renta de automóviles.',
+    'Pichincha Miles® no garantiza una marca, modelo o color de vehículo específico, sin importar el vehículo que se reserve.',
+    'Es posible que se apliquen restricciones geográficas y transfronterizas.',
+    'Los arrendatarios deben cumplir con el requisito de edad mínima y máxima, (si corresponde) de la localidad donde se alquila el automóvil, contar con una licencia de conducir válida y una tarjeta de crédito importante; algunos proveedores solicitan, incluso, un historial de manejo intachable. La mayoría de las empresas de alquiler de automóviles no aceptan tarjetas de débito. Asimismo, la mayoría de ellas cobran un recargo a los conductores que se encuentran en un determinado rango de edad. Las compañías se reservan el derecho de negar el alquiler de automóviles por cualquier motivo (incluidos los registros de manejo en el pasado).',
+    'Los alquileres fuera del país de residencia del cliente pueden requerir una licencia de conducir internacional o el cumplimiento de otros requisitos locales.',
+    'No se permiten alquileres de trayecto único, es decir, ida solamente.',
+    'Las redenciones o canje de millas para alquiler de automóviles pueden no estar disponibles para todos los lugares y destinos.',
+    'Las rentas de auto, tanto a nivel local como las que salen del estado o del país, pueden estar sujetas a restricciones adicionales.',
+    'Las tasas de alquiler de automóviles no incluyen seguro contra accidentes y robo, excepto que se especifique al momento de tomar la reserva. El cliente debe comunicarse con su compañía de seguros si no tiene la certeza de aceptar el seguro que le ofrece la compañía de alquiler.',
+];

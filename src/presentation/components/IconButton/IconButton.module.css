@@ -1,0 +1,13 @@
+@reference "../../../app/globals.css";
+
+.iconButton{
+    @apply border border-b-blue-500 p-1.5 rounded-sm cursor-pointer bg-white;
+}
+
+.iconButton svg{
+    @apply w-5 h-5 ;
+}
+
+.iconButton svg path{
+    fill: theme('colors.blue.500');
+}

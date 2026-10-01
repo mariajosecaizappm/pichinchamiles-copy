@@ -1,0 +1,257 @@
+# MultiBranch and MultiStage pipeline for Docker & AWS ECS
+# Configuration
+# You need to create three groups of variables: aws-credentials, aws-infra-resources and aws-infra-resources-dpsh-ec-front
+# You need to configure three environments: DEV, PREPROD, PROD
+# You need to add approvers to the PROD environment
+
+variables:
+  - group: 'sonar-configurations'
+  - group: aws-credentials
+  - group: "aws-infra-resources-general"
+  - group: cloudflare-credentials
+
+trigger:
+  branches:
+    include:
+      - develop_v2
+      - preprod
+      - master
+      - hotfix/*
+  paths:
+    include:
+      - "*"
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - develop_v2
+  paths:
+    include:
+      - "*"
+
+stages:
+  - stage: BuildStage
+    condition: |
+      or(
+        eq(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['Build.SourceBranchName'], 'develop_v2')
+      )
+    displayName: Build Stage DEV
+    jobs:
+      - job: BuildJob
+        pool:
+          name: 'pool-frontend'
+        workspace:
+          clean: all
+        steps:
+          - script: |
+              echo ------------------
+              echo Clean Docker
+              echo ------------------
+              docker system prune -af
+            displayName: Clean Docker
+          - script: |
+              echo ------------------
+              echo Remove another projects folders
+              echo ------------------
+              shopt -s extglob
+            displayName: Remove another projects folders
+          - script: |
+              echo ------------------
+              echo Execute tests and coverage
+              echo ------------------
+              cd $(Build.SourcesDirectory)
+              rm -f .npmrc
+              npm ci
+              npm run test
+            displayName: Execute tests and coverage
+          - script: |
+              echo ------------------
+              echo Clean up node_modules folder
+              echo ------------------
+              rm -rf $(Build.SourcesDirectory)/node_modules
+              echo node_modules folder has been deleted
+            displayName: Remove node_modules folder
+          - script: |
+              repo_name=$(echo "$(Build.Repository.Name)" | sed 's/publipromueve\///')
+              echo "##vso[task.setvariable variable=repositoryNameWithoutOwner;]$repo_name"
+            displayName: 'Set Repository Name Without Owner'
+          - task: SonarQubePrepare@7
+            displayName: 'Prepare analysis on SonarQube'
+            inputs:
+              SonarQube: 'sonarqube-selfhosted'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: $(repositoryNameWithoutOwner)
+              cliSources: '.'
+              extraProperties: |
+                sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/coverage/lcov.info
+                sonar.javascript.node.maxspace=4096
+                sonar.sourceEncoding=UTF-8
+                sonar.test.inclusions=**/*.test.*
+                sonar.sources=src/app,src/data,src/domain,src/presentation
+                sonar.tests=src/app,src/data,src/domain,src/presentation
+                sonar.javascript.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**
+                sonar.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**,**/__mocks__/**,**/*.svg
+          - task: SonarQubeAnalyze@7
+            displayName: 'Run Code Analysis'
+          - task: SonarQubePublish@7
+          - script: ls $(Build.SourcesDirectory)/coverage
+            displayName: "Check coverage directory"
+          - task: PublishCodeCoverageResults@2
+            inputs:
+              codeCoverageTool: 'Clover'
+              summaryFileLocation: '$(Build.SourcesDirectory)/coverage/clover.xml'
+              pathToSources: '$(Build.SourcesDirectory)'
+              failIfCoverageEmpty: true
+
+  - stage: BuildStagePREPROD
+    condition: |
+      and(
+        or(
+          eq(variables['Build.SourceBranchName'], 'preprod'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+        ),
+        ne(variables['Build.Reason'], 'PullRequest')
+      )
+    displayName: Build Stage PREPROD
+    jobs:
+      - job: BuildJobPreprod
+        pool:
+          name: 'pool-frontend'
+        workspace:
+          clean: all
+        steps:
+          - script: |
+              echo ------------------
+              echo Clean Docker
+              echo ------------------
+              docker system prune -af
+            displayName: Clean Docker
+          - script: |
+              echo ------------------
+              echo Remove another projects folders
+              echo ------------------
+              shopt -s extglob
+            displayName: Remove another projects folders
+          - script: |
+              echo ------------------
+              echo Execute tests and coverage
+              echo ------------------
+              cd $(Build.SourcesDirectory)
+              rm -f .npmrc
+              npm ci
+              npm run test
+            displayName: Execute tests and coverage
+          - script: |
+              echo ------------------
+              echo Clean up node_modules folder
+              echo ------------------
+              rm -rf $(Build.SourcesDirectory)/node_modules
+              echo node_modules folder has been deleted
+            displayName: Remove node_modules folder
+          - script: |
+              repo_name=$(echo "$(Build.Repository.Name)" | sed 's/publipromueve\///')
+              echo "##vso[task.setvariable variable=repositoryNameWithoutOwner;]$repo_name"
+            displayName: 'Set Repository Name Without Owner'
+          - task: SonarQubePrepare@7
+            displayName: 'Prepare analysis on SonarQube'
+            inputs:
+              SonarQube: 'sonarqube-selfhosted'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: $(repositoryNameWithoutOwner)
+              cliSources: '.'
+              extraProperties: |
+                sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/coverage/lcov.info
+                sonar.javascript.node.maxspace=4096
+                sonar.sourceEncoding=UTF-8
+                sonar.test.inclusions=**/*.test.*
+                sonar.sources=src/app,src/data,src/domain,src/presentation
+                sonar.tests=src/app,src/data,src/domain,src/presentation
+                sonar.javascript.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**
+                sonar.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**,**/__mocks__/**,**/*.svg
+          - task: SonarQubeAnalyze@7
+            displayName: 'Run Code Analysis'
+          - task: SonarQubePublish@7
+          - script: ls $(Build.SourcesDirectory)/coverage
+            displayName: "Check coverage directory"
+          - task: PublishCodeCoverageResults@2
+            inputs:
+              codeCoverageTool: 'Clover'
+              summaryFileLocation: '$(Build.SourcesDirectory)/coverage/clover.xml'
+              pathToSources: '$(Build.SourcesDirectory)'
+              failIfCoverageEmpty: true
+
+  - stage: BuildStagePROD
+    condition: eq(variables['Build.SourceBranchName'], 'master')
+    displayName: Build Stage PROD
+    jobs:
+      - job: BuildJobProd
+        pool:
+          name: 'pool-frontend'
+        workspace:
+          clean: all
+        steps:
+          - script: |
+              echo ------------------
+              echo Clean Docker
+              echo ------------------
+              docker system prune -af
+            displayName: Clean Docker
+          - script: |
+              echo ------------------
+              echo Remove another projects folders
+              echo ------------------
+              shopt -s extglob
+            displayName: Remove another projects folders
+          - script: |
+              echo ------------------
+              echo Execute tests and coverage
+              echo ------------------
+              cd $(Build.SourcesDirectory)
+              rm -f .npmrc
+              npm ci
+              npm run test
+            displayName: Execute tests and coverage
+          - script: |
+              echo ------------------
+              echo Clean up node_modules folder
+              echo ------------------
+              rm -rf $(Build.SourcesDirectory)/node_modules
+              echo node_modules folder has been deleted
+            displayName: Remove node_modules folder
+          - script: |
+              repo_name=$(echo "$(Build.Repository.Name)" | sed 's/publipromueve\///')
+              echo "##vso[task.setvariable variable=repositoryNameWithoutOwner;]$repo_name"
+            displayName: 'Set Repository Name Without Owner'
+          - task: SonarQubePrepare@7
+            displayName: 'Prepare analysis on SonarQube'
+            inputs:
+              SonarQube: 'sonarqube-selfhosted'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: $(repositoryNameWithoutOwner)
+              cliSources: '.'
+              extraProperties: |
+                sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/coverage/lcov.info
+                sonar.javascript.node.maxspace=4096
+                sonar.sourceEncoding=UTF-8
+                sonar.test.inclusions=**/*.test.*
+                sonar.sources=src/app,src/data,src/domain,src/presentation
+                sonar.tests=src/app,src/data,src/domain,src/presentation
+                sonar.javascript.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**
+                sonar.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/public/**,**/__test__/**,**/__mocks__/**,**/*.svg
+          - task: SonarQubeAnalyze@7
+            displayName: 'Run Code Analysis'
+          - task: SonarQubePublish@7
+          - script: ls $(Build.SourcesDirectory)/coverage
+            displayName: "Check coverage directory"
+          - task: PublishCodeCoverageResults@2
+            inputs:
+              codeCoverageTool: 'Clover'
+              summaryFileLocation: '$(Build.SourcesDirectory)/coverage/clover.xml'
+              pathToSources: '$(Build.SourcesDirectory)'
+              failIfCoverageEmpty: true
+
